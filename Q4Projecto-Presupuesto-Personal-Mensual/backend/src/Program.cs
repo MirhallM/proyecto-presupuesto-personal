@@ -1,5 +1,4 @@
-
-namespace Q4Projecto_Presupuesto_Personal_Mensual
+namespace Q4Projecto_Presupuesto_Personal_Mensual.backend.src
 {
     public class Program
     {
