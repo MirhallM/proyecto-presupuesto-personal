@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Q4Projecto_Presupuesto_Personal_Mensual.Controllers
+namespace Q4Projecto_Presupuesto_Personal_Mensual.backend.src.Controllers
 {
     [ApiController]
     [Route("[controller]")]
