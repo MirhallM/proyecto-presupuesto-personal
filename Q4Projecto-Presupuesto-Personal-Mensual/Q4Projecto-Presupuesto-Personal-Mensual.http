@@ -1,0 +1,6 @@
+@Q4Projecto_Presupuesto_Personal_Mensual_HostAddress = http://localhost:5032
+
+GET {{Q4Projecto_Presupuesto_Personal_Mensual_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
