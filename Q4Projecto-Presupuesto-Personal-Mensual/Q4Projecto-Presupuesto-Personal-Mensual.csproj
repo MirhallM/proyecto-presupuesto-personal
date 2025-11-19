@@ -15,4 +15,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Sap.Data.SQLAnywhere.v4.5">
+      <HintPath>..\..\..\Program Files\SQL Anywhere 17\Assembly\V4.5\Sap.Data.SQLAnywhere.v4.5.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
