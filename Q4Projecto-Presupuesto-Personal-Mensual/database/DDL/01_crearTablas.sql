@@ -1,17 +1,5 @@
-﻿/*Se botan las tablas desde mas dependiente hasta las tablas base o independientes, asi que si se quiere iniciar la base de datos desde 0 se puede hacer
-sin tener que borrar el archivo en el que se estan creando las tablas */
-
-DROP TABLE IF EXISTS transacciones;
-DROP TABLE IF EXISTS detalles_presupuesto;
-DROP TABLE IF EXISTS presupuestos;
-DROP TABLE IF EXISTS metas_ahorro;
-DROP TABLE IF EXISTS obligaciones;
-DROP TABLE IF EXISTS subcategorias
-DROP TABLE IF EXISTS categorias;
-DROP TABLE IF EXISTS usuarios;
-
-create table "usuarios"(
-  "id_usuario" integer not null,
+﻿create or replace table "usuarios"(
+  "id_usuario" integer not null identity,
   "nombres" varchar(50) not null,
   "apellidos" varchar(50) not null,
   "correo_electronico" varchar(50) not null,
@@ -28,12 +16,14 @@ create table "usuarios"(
   --Restricciones llave de la llave primaria/valores unicos
   unique("id_usuario"),
   unique("correo_electronico"),
-  primary key("id_usuario" asc))
+  primary key("id_usuario" asc)
+)
 
-create table "presupuestos"(
-  "id_presupuesto" integer not null,
+create or replace table "presupuestos"(
+  "id_presupuesto" integer not null identity,
   "id_usuario" integer not null,
   "nombre_presupuesto" varchar(100) not null,
+  "descripcion" varchar(255) not null,
   "anio_incio" integer not null,
   "mes_inicio" integer not null,
   "anio_final" integer not null,
@@ -54,10 +44,10 @@ create table "presupuestos"(
   constraint "id_presupuesto" primary key("id_presupuesto" asc),
   )
 
-create table "categorias"(
-  "id_categoria" integer not null,
+create or replace table "categorias"(
+  "id_categoria" integer not null identity,
   "nombre" varchar(50) not null,
-  "descripcion" varchar(100) not null,
+  "descripcion" varchar(255) not null,
   "tipo_categoria" varchar(16) not null,
   "nombre_icono" varchar(50) null,
   "color" varchar(8) null,
@@ -74,11 +64,11 @@ create table "categorias"(
   primary key("id_categoria" asc),
   )
 
-create table "subcategorias"(
-  "id_subcategoria" integer not null,
+create or replace table "subcategorias"(
+  "id_subcategoria" integer not null identity,
   "id_categoria" integer not null,
   "nombre" varchar(50) not null,
-  "descripcion" varchar(100) not null,
+  "descripcion" varchar(255) not null,
   "es_activo" tinyint not null default 1,
   "es_predeterminado" tinyint not null,
 
@@ -94,10 +84,10 @@ create table "subcategorias"(
   primary key("id_subcategoria" asc),
   )
 
-create table "detalles_presupuesto"(
-  "id_detalle" integer not null,
+create or replace table "detalles_presupuesto"(
+  "id_detalle" integer not null identity,
   "monto_asignado" decimal(10,2) not null,
-  "justificacion" varchar(50) not null,
+  "justificacion" varchar(100) null,
   "id_subcategoria" integer not null,
   "id_presupuesto" integer not null,
 
@@ -112,12 +102,12 @@ create table "detalles_presupuesto"(
   primary key("id_detalle" asc),
   )
 
-create table "obligaciones"(
-  "id_obligacion" integer not null,
+create or replace table "obligaciones"(
+  "id_obligacion" integer not null identity,
   "id_usuario" integer not null,
   "id_subcategoria" integer not null, 
   "nombre" varchar(50) not null,
-  "descripcion" varchar(50) not null,
+  "descripcion" varchar(255) not null,
   "monto_fijo" decimal(10,2) not null,
   "dia_vencimiento" integer not null,
   "es_vigente" tinyint not null,
@@ -135,8 +125,8 @@ create table "obligaciones"(
   primary key("id_obligacion" asc),
   )
 
-create table "transacciones"(
-  "id_transaccion" integer not null,
+create or replace table "transacciones"(
+  "id_transaccion" integer not null identity,
   "id_presupuesto" integer not null,
   "id_usuario" integer not null,
   "id_subcategoria" integer not null,
@@ -144,7 +134,7 @@ create table "transacciones"(
   "anio_transaccion" integer not null,
   "mes_transaccion" integer not null,
   "tipo_transaccion" varchar(18) not null,
-  "descripcion" varchar(100) not null,
+  "descripcion" varchar(255) not null,
   "monto" decimal(10,2) not null,
   "fecha_transaccion" date not null,
   "metodo_pago" varchar(30) not null,
@@ -163,12 +153,12 @@ create table "transacciones"(
   primary key("id_transaccion" asc),
   )
 
-create table "metas_ahorro"(
-  "id_meta" integer not null,
+create or replace table "metas_ahorro"(
+  "id_meta" integer not null identity,
   "id_usuario" integer not null,
   "id_subcategoria" integer not null,
   "nombre" varchar(50) not null,
-  "descripcion" varchar(100) not null,
+  "descripcion" varchar(255) not null,
   "monto_meta" decimal(10,2) not null,
   "monto_ahorrado" decimal(10,2) not null,
   "fecha_inicio" date not null,
