@@ -30,6 +30,7 @@ create or replace table "presupuestos"(
   "mes_final" integer not null,
   "total_ingresos" decimal(10,2) not null,
   "total_gastos" decimal(10,2) not null,
+  "total_ahorros" decimal(10,2) not null default 0,
   "fecha_creacion" date not null default current date,
   "estado" varchar(16) not null default 'borrador',
 
