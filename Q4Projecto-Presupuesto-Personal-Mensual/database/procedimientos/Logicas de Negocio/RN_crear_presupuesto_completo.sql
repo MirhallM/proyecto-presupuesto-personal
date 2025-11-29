@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE PROCEDURE "sp_crear_presupuesto_completo"(
+﻿ CREATE OR REPLACE PROCEDURE "sp_crear_presupuesto_completo"(
     IN p_id_usuario integer,
     IN p_nombre varchar(100), --Nombre del presupuesto
     IN p_descripcion varchar(255),  --Descripcion del presupuesto

@@ -5,7 +5,7 @@
   "correo_electronico" varchar(50) not null,
   "fecha_registro" date not null default current date,
   "salario_base" decimal(10,2) not null,
-  
+  es_activo tinyint not null default 1;
 
   --CAMPOS DE AUDITORIA
   "creado_por" varchar(50) not null,
