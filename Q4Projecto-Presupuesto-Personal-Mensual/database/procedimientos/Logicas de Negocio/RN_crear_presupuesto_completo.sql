@@ -34,18 +34,18 @@ BEGIN
     WHERE id_usuario = p_id_usuario;
 
     IF creador IS NULL THEN
-        RAISERROR 50002 'El usuario no existe'
+        RAISERROR 50002 'El usuario no existe';
     END IF;
 
     --Verificar que las fechas cumplan las reglas de negocio
     --El año final debe ser mayor o igual al año inicial
     IF v_anio_inicio < v_anio_final THEN 
-        RAISERROR 20000 'El año final no puede ser menor que el año inicial'
+        RAISERROR 20000 'El año final no puede ser menor que el año inicial';
     END IF;
     
     --En el caso de que los años sean iguales, entonces el mes final tiene que ser mayor o igual al mes inicial
     IF v_anio_final = v_anio_inicio AND v_mes_final < v_mes_inicio THEN
-        RAISERROR 20000 'El mes final no puede ser menor que el mes de inicio dentro del mismo año'
+        RAISERROR 20000 'El mes final no puede ser menor que el mes de inicio dentro del mismo año';
     END IF;
     
     -- Agregar revision de que no exista un presupuesto activo dentro del periodo establecido

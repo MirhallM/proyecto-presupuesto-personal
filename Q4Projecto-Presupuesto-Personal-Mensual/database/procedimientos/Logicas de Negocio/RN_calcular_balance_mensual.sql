@@ -41,7 +41,7 @@ BEGIN
 	    OR (p_anio > v_anio_fin)
     	OR (p_anoi = v_anio_inicio AND p_mes < v_mes_inicio)
     	OR (p_anoi = v_anio_inicio AND p_mes > v_mes_final)
-		THEN RAISERROR 50000 'La fecha elegida para el balance esta fuera del periodo activo del presupuesto'
+		THEN RAISERROR 50000 'La fecha elegida para el balance esta fuera del periodo activo del presupuesto';
 	END IF;
 	
 	-- 4. Calcular ingresos, gastos y ahorros

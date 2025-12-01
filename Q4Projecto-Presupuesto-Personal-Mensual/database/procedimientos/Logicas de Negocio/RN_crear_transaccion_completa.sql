@@ -37,7 +37,7 @@ BEGIN
     WHERE id_usuario = p_id_usuario;
 
     IF creador IS NULL THEN
-        RAISERROR 50002 'El usuario no existe'
+        RAISERROR 50002 'El usuario no existe';
     END IF;
 
 	-- 2. Validar que el presupuesto existe y que este la transaccion este dentro de un periodo valido
@@ -57,7 +57,7 @@ BEGIN
         OR (p_anio > v_anio_fin)
         OR (p_anoi = v_anio_inicio AND p_mes < v_mes_inicio)
         OR (p_anoi = v_anio_inicio AND p_mes > v_mes_final)
-    THEN RAISERROR 50000 'La transaccion esta fuera del periodo activo del presupuesto'
+    THEN RAISERROR 50000 'La transaccion esta fuera del periodo activo del presupuesto';
     END IF;
 
     -- 4. Verificar que la subcategoria pertenece a este presupuesto
@@ -65,8 +65,8 @@ BEGIN
         SELECT 1 
         FROM subcategorias
         WHERE id_subcategoria = p_id_subcategoria
-        AND id_presupuesto = p_id_id_presupuesto
-    ) THEN RAISERROR 50001 'La subcategoria no pertenece a este presupuesto'
+        AND id_presupuesto = p_id_presupuesto
+    ) THEN RAISERROR 50001 'La subcategoria no pertenece a este presupuesto';
     END IF;
 
     --5. Insertar la transaccion
