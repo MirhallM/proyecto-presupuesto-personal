@@ -15,6 +15,7 @@ BEGIN
     DECLARE v_total_ingresos DECIMAL(10,2) DEFAULT 0;
     DECLARE v_total_gastos DECIMAL(10,2) DEFAULT 0;
     DECLARE v_id_presupuesto integer;
+    DECLARE v_creador varchar(50);
 
     --Variables del archivo JSON para el id_subcategoria y monto mensual
     DECLARE v_subcategoria integer;
@@ -25,6 +26,16 @@ BEGIN
     SET v_mes_inicio = MONTH(p_periodo_inicio);
     SET v_anio_final = YEAR(p_periodo_fin);
     SET v_mes_final = MONTH(p_periodo_fin);
+
+    -- 1. Validar que el usuario exista
+	SELECT nombres 
+    INTO v_creador
+    FROM usuarios
+    WHERE id_usuario = p_id_usuario;
+
+    IF creador IS NULL THEN
+        RAISERROR 50002 'El usuario no existe'
+    END IF;
 
     --Verificar que las fechas cumplan las reglas de negocio
     --El año final debe ser mayor o igual al año inicial
@@ -77,8 +88,8 @@ BEGIN
             v_total_ingresos,
             0.00,
             'activo',
-            p_nombre,
-            p_nombre
+            v_creador,
+            v_creador
         );
 
     --Conseguir el id del presupuesto generado al hacer el nuevo presupuesto

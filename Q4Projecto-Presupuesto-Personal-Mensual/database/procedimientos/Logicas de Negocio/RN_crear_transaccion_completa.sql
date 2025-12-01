@@ -28,7 +28,7 @@ BEGIN
 	DECLARE v_anio_inicio int;
 	DECLARE v_mes_final int;
 	DECLARE v_anio_final int;
-    DECLARE creador varchar (50)
+    DECLARE creador varchar (50);
 
 	-- 1. Validar que el usuario exista
 	SELECT nombres 
@@ -46,7 +46,11 @@ BEGIN
     FROM presupuestos p
     WHERE p.id_presupuesto = p_id_presupuesto 
     AND p_id_usuario = p.id_usuario 
-    AND p.estado = 'activo'
+    AND p.estado = 'activo';
+
+    IF v_mes_inicio IS NULL THEN
+        RAISERROR 50003 'El presupuesto no existe, no pertenece al usuario o no está activo.';
+    END IF;
 
     -- 3. Verificar que fecha de la transaccion pertenezca a un presupuesto activo
     IF (p_anio < v_anio_inicio)
@@ -98,5 +102,5 @@ BEGIN
         p_fecha,
         creador,
         creador
-    )
+    );
 END;
