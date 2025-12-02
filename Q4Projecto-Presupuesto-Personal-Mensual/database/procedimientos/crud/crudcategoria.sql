@@ -1,4 +1,3 @@
--- 1) Insertar una nueva categoria
 CREATE PROCEDURE sp_insertar_categoria(
     IN p_nombre VARCHAR(100),
     IN p_descripcion VARCHAR(255),
@@ -27,8 +26,6 @@ BEGIN
     SELECT @@IDENTITY AS id_categoria;
 END;
 
-
--- 2) Actualizar una categoria existente
 CREATE PROCEDURE sp_actualizar_categoria(
     IN p_id_categoria INT,
     IN p_nombre VARCHAR(100),
@@ -55,7 +52,6 @@ BEGIN
 END;
 
 
--- 3) Eliminar una categoria
 CREATE PROCEDURE sp_eliminar_categoria(
     IN p_id_categoria INT
 )
@@ -85,8 +81,6 @@ BEGIN
     END IF;
 END;
 
-
--- 4) Consultar una categoria por su ID
 CREATE PROCEDURE sp_consultar_categoria(
     IN p_id_categoria INT
 )
@@ -108,7 +102,6 @@ BEGIN
 END;
 
 
--- 5) Listar todas las categorias de un usuario
 CREATE PROCEDURE sp_listar_categorias(
     IN p_id_usuario INT,
     IN p_tipo VARCHAR(50) DEFAULT NULL
