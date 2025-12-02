@@ -5,7 +5,6 @@ CREATE OR REPLACE PROCEDURE sp_insertar_usuario(
 	IN p_salario_mensual decimal(10,2), 
 	IN p_creado_por varchar(50)
 )
-BEGIN
 INSERT INTO usuarios(
 	nombres,
 	apellidos,
@@ -20,8 +19,7 @@ INSERT INTO usuarios(
 	p_salario_mensual,
 	p_creado_por,
 	p_creado_por
-);
-END;
+)
 
 CREATE OR REPLACE PROCEDURE sp_actualizar_usuario(
 	p_id_usuario integer,
@@ -46,16 +44,16 @@ BEGIN
 	SET es_activo = 0
 	WHERE id_usuario= p_id_usuario;
 
-END;
+END
 
 CREATE OR REPLACE PROCEDURE sp_consultar_usuario(p_id_usuario integer)
 BEGIN 
 IF NOT EXISTS (
-    SELECT 1
-    FROM usuarios
-    WHERE id_usuario = p_id_usuario
-) THEN
-    RAISERROR 50001 'No hay usuario con esta ID';
+	SELECT 1
+	FROM usuarios
+	WHERE id_usuario = p_id_usuario
+) THEN (
+	RAISERROR 50000 'No hay usuario con esta ID'
 END IF;
 
 	SELECT * 
@@ -63,7 +61,7 @@ END IF;
 	WHERE id_usuario = p_id_usuario;
 END;
 
-CREATE OR REPLACE PROCEDURE sp_listar_usuarios()
+CREATE PROCEDURE sp_listar_usuarios()
 BEGIN
     SELECT *
     FROM usuarios
