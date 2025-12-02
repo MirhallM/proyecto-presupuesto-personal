@@ -1,7 +1,7 @@
 CREATE OR REPLACE PROCEDURE sp_insertar_obligacion(
 	IN p_id_usuario integer,
 	IN p_id_subcategoria integer,
-	IN p_nombre varchar(100),
+	IN p_nombre varchar(50),
 	IN p_descripcion varchar(255),
 	IN p_monto decimal(10,2),
 	IN p_dia_vencimiento integer,
@@ -15,11 +15,11 @@ BEGIN
 		id_subcategoria,
 		nombre,
 		descripcion,
-		monto,
+		monto_fijo,
 		dia_vencimiento,
 		fecha_inicio,
 		fecha_fin,
-		activo,
+		es_vigente,
 		creado_por,
 		modificado_por
 	) VALUES (
@@ -39,22 +39,22 @@ END;
 
 CREATE OR REPLACE PROCEDURE sp_actualizar_obligacion(
 	IN p_id_obligacion integer,
-	IN p_nombre varchar(100),
+	IN p_nombre varchar(50),
 	IN p_descripcion varchar(255),
 	IN p_monto decimal(10,2),
 	IN p_dia_vencimiento integer,
 	IN p_fecha_fin date,
-	IN p_activo integer,
+	IN p_activo tinyint,
 	IN p_modificado_por varchar(100)
 )
 BEGIN
 	UPDATE obligaciones SET
 		nombre = p_nombre,
 		descripcion = p_descripcion,
-		monto = p_monto,
+		monto_fijo = p_monto,
 		dia_vencimiento = p_dia_vencimiento,
 		fecha_fin = p_fecha_fin,
-		activo = p_activo,
+		es_vigente = p_activo,
 		modificado_por = p_modificado_por,
 		modificado_en = CURRENT TIMESTAMP
 	WHERE id_obligacion = p_id_obligacion;
@@ -65,7 +65,7 @@ CREATE OR REPLACE PROCEDURE sp_eliminar_obligacion(
 )
 BEGIN
 	UPDATE obligaciones
-	SET activo = 0,
+	SET es_vigente = 0,
 		modificado_en = CURRENT TIMESTAMP
 	WHERE id_obligacion = p_id_obligacion;
 END;
@@ -77,7 +77,7 @@ BEGIN
 	IF NOT EXISTS (
 		SELECT 1
 		FROM obligaciones
-		WHERE id_obligacion = p_id_obligacion
+		WHERE id_obligacion = p_id_obligacion AND es_vigente = 1;
 	) THEN
 		RAISERROR 50000 'No hay obligación con esta ID';
 	END IF;
@@ -103,17 +103,17 @@ BEGIN
 		o.id_subcategoria,
 		o.nombre,
 		o.descripcion,
-		o.monto,
+		o.monto_fijo,
 		o.dia_vencimiento,
 		o.fecha_inicio,
 		o.fecha_fin,
-		o.activo,
+		o.es_vigente,
 		s.nombre AS nombre_subcategoria,
 		c.nombre AS nombre_categoria
 	FROM obligaciones o
 	INNER JOIN subcategorias s ON o.id_subcategoria = s.id_subcategoria
 	INNER JOIN categorias c ON s.id_categoria = c.id_categoria
 	WHERE o.id_usuario = p_id_usuario
-	AND (p_activo IS NULL OR o.activo = p_activo)
+	AND (p_activo IS NULL OR o.es_vigente = p_activo)
 	ORDER BY o.dia_vencimiento, o.nombre;
 END; 
