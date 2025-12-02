@@ -21,8 +21,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="database\procedimientos\CRUD\" />
-  </ItemGroup>
-
 </Project>

@@ -25,7 +25,7 @@ BEGIN
 END;
 
 
--- 2) Actualizar una subcategoría existente
+-- 2) Actualizar una subcategoria existente
 CREATE OR REPLACE PROCEDURE sp_actualizar_subcategoria(
 	IN p_id_subcategoria integer,
 	IN p_nombre varchar(100),
@@ -42,7 +42,7 @@ BEGIN
 END;
 
 
--- 3) Eliminar una subcategoría
+-- 3) Eliminar una subcategoria
 CREATE OR REPLACE PROCEDURE sp_eliminar_subcategoria(
 	IN p_id_subcategoria integer
 )
@@ -70,7 +70,7 @@ BEGIN
 END;
 
 
--- 4) Consultar una subcategoría por ID
+-- 4) Consultar una subcategoria por ID
 CREATE OR REPLACE PROCEDURE sp_consultar_subcategoria(
 	IN p_id_subcategoria integer
 )
@@ -92,7 +92,7 @@ BEGIN
 END;
 
 
--- 5) Listar subcategorías de una categoría
+-- 5) Listar subcategorias de una categoria
 CREATE OR REPLACE PROCEDURE sp_listar_subcategorias_por_categoria(
 	IN p_id_categoria integer
 )
