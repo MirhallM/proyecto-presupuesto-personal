@@ -1,24 +1,26 @@
 -- 1) Insertar una nueva subcategoría
 CREATE OR REPLACE PROCEDURE sp_insertar_subcategoria(
 	IN p_id_categoria integer,
-	IN p_nombre varchar(100),
+	IN p_nombre varchar(50),
 	IN p_descripcion varchar(255),
-	IN p_es_defecto integer,
-	IN p_creado_por varchar(100)
+	IN p_es_predeterminado tinyint,
+	IN p_creado_por varchar(50)
 )
 BEGIN
 	INSERT INTO subcategorias(
 		id_categoria,
 		nombre,
 		descripcion,
-		es_defecto,
+		es_activo,
+		es_predeterminado,
 		creado_por,
 		modificado_por
 	) VALUES (
 		p_id_categoria,
 		p_nombre,
 		p_descripcion,
-		p_es_defecto,
+		1,
+		p_es_predeterminado,
 		p_creado_por,
 		p_creado_por
 	);
@@ -28,9 +30,9 @@ END;
 -- 2) Actualizar una subcategoria existente
 CREATE OR REPLACE PROCEDURE sp_actualizar_subcategoria(
 	IN p_id_subcategoria integer,
-	IN p_nombre varchar(100),
+	IN p_nombre varchar(50),
 	IN p_descripcion varchar(255),
-	IN p_modificado_por varchar(100)
+	IN p_modificado_por varchar(50)
 )
 BEGIN
 	UPDATE subcategorias SET
@@ -85,7 +87,7 @@ BEGIN
 	SELECT 
 		s.*,
 		c.nombre AS nombre_categoria,
-		c.tipo AS tipo_categoria
+		c.tipo_categoria AS tipo_categoria
 	FROM subcategorias s
 	INNER JOIN categorias c ON s.id_categoria = c.id_categoria
 	WHERE s.id_subcategoria = p_id_subcategoria;
