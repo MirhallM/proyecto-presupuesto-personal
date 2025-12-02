@@ -1,23 +1,24 @@
 CREATE OR REPLACE PROCEDURE sp_insertar_categoria(
-	IN p_nombre varchar(100),
+	IN p_nombre varchar(50),
 	IN p_descripcion varchar(255),
-	IN p_tipo varchar(50),
-	IN p_id_usuario integer,
-	IN p_creado_por varchar(100)
+	IN p_tipo varchar(16),
+	IN p_creado_por varchar(50)
 )
 BEGIN
 	INSERT INTO categorias(
 		nombre,
 		descripcion,
-		tipo,
-		id_usuario,
+		tipo_categoria,
+		nombre_icono,
+		color,
 		creado_por,
 		modificado_por
 	) VALUES (
 		p_nombre,
 		p_descripcion,
 		p_tipo,
-		p_id_usuario,
+		NULL,
+		NULL,
 		p_creado_por,
 		p_creado_por
 	);
@@ -26,9 +27,9 @@ END;
 
 CREATE OR REPLACE PROCEDURE sp_actualizar_categoria(
 	IN p_id_categoria integer,
-	IN p_nombre varchar(100),
+	IN p_nombre varchar(50),
 	IN p_descripcion varchar(255),
-	IN p_modificado_por varchar(100)
+	IN p_modificado_por varchar(50)
 )
 BEGIN
 	UPDATE categorias SET
@@ -46,9 +47,9 @@ BEGIN
 	DECLARE v_tiene_subcategorias integer;
 	
 	SELECT COUNT(*) INTO v_tiene_subcategorias
-	FROM categorias
-	WHERE id_categoria_padre = p_id_categoria
-	AND estado = 'activo';
+	FROM subcategorias
+	WHERE id_categoria = p_id_categoria
+	AND es_activo = 1;
 	
 	IF v_tiene_subcategorias > 0 THEN
 		RAISERROR 50000 'No se puede eliminar, tiene subcategorías activas';
@@ -77,12 +78,12 @@ END;
 
 CREATE OR REPLACE PROCEDURE sp_listar_categorias(
 	IN p_id_usuario integer,
-	IN p_tipo varchar(50)
+	IN p_tipo varchar(16)
 )
 BEGIN
 	SELECT *
 	FROM categorias
 	WHERE id_usuario = p_id_usuario
-	AND (p_tipo IS NULL OR tipo = p_tipo)
+	AND (p_tipo IS NULL OR tipo_categoria = p_tipo)
 	ORDER BY fecha_creacion DESC;
 END;
