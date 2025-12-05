@@ -25,18 +25,6 @@ BEGIN
         p_creado_por,
         p_creado_por
     );
-
-    -- 2. Obtener el ID de la categoría recién creada
-    SET v_id_categoria = SCOPE_IDENTITY();
-
-    -- 3. Insertar la subcategoría por default
-    CALL sp_insertar_subcategoria(
-        v_id_categoria,
-        'General',
-        'Subcategoría creada automáticamente',
-        1,                -- es_predeterminado
-        p_creado_por
-    );
 END;
 
 
