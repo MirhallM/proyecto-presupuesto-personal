@@ -16,10 +16,10 @@ BEGIN
     )
     VALUES (
         nueva_cat.id_categoria,
-        'General',                        
-        CONCAT('Subcategoría por defecto de ', nueva_cat.nombre),
-        1,                                -- es_activo
-        1,                                -- es_predeterminado
+        'General',
+        'Subcategoria por defecto de ' || nueva_cat.nombre,  -- Aquí se usa || en lugar de CONCAT
+        1,  -- es_activo
+        1,  -- es_predeterminado
         nueva_cat.creado_por,
         nueva_cat.creado_por
     );
