@@ -10,19 +10,21 @@ BEGIN
 	DECLARE v_ejecutado decimal(10,2);
 	DECLARE v_balance decimal(10,2);
 	
+	-- Obtener presupuesto mensual asignado
 	SELECT COALESCE(monto_mensual, 0.00) INTO v_presupuestado
 	FROM presupuestos_detalle
 	WHERE id_presupuesto = p_id_presupuesto
-	AND id_subcategoria = p_id_subcategoria;
-	
+	  AND id_subcategoria = p_id_subcategoria;
+
+	-- Obtener monto ejecutado
 	SELECT COALESCE(SUM(monto), 0.00) INTO v_ejecutado
 	FROM transacciones
 	WHERE id_presupuesto = p_id_presupuesto
-	AND id_subcategoria = p_id_subcategoria
-	AND anio = p_anio
-	AND mes = p_mes;
-	
+	  AND id_subcategoria = p_id_subcategoria
+	  AND anio = p_anio
+	  AND mes = p_mes;
+
 	SET v_balance = v_presupuestado - v_ejecutado;
-	
+
 	RETURN v_balance;
 END;

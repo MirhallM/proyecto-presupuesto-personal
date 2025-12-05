@@ -1,28 +1,44 @@
 CREATE OR REPLACE PROCEDURE sp_insertar_categoria(
-	IN p_nombre varchar(50),
-	IN p_descripcion varchar(255),
-	IN p_tipo varchar(16),
-	IN p_creado_por varchar(50)
+    IN p_nombre varchar(50),
+    IN p_descripcion varchar(255),
+    IN p_tipo varchar(16),
+    IN p_creado_por varchar(50)
 )
 BEGIN
-	INSERT INTO categorias(
-		nombre,
-		descripcion,
-		tipo_categoria,
-		nombre_icono,
-		color,
-		creado_por,
-		modificado_por
-	) VALUES (
-		p_nombre,
-		p_descripcion,
-		p_tipo,
-		NULL,
-		NULL,
-		p_creado_por,
-		p_creado_por
-	);
+    DECLARE v_id_categoria INTEGER;
+
+    -- 1. Insertar la nueva categoría
+    INSERT INTO categorias(
+        nombre,
+        descripcion,
+        tipo_categoria,
+        nombre_icono,
+        color,
+        creado_por,
+        modificado_por
+    ) VALUES (
+        p_nombre,
+        p_descripcion,
+        p_tipo,
+        NULL,
+        NULL,
+        p_creado_por,
+        p_creado_por
+    );
+
+    -- 2. Obtener el ID de la categoría recién creada
+    SET v_id_categoria = SCOPE_IDENTITY();
+
+    -- 3. Insertar la subcategoría por default
+    CALL sp_insertar_subcategoria(
+        v_id_categoria,
+        'General',
+        'Subcategoría creada automáticamente',
+        1,                -- es_predeterminado
+        p_creado_por
+    );
 END;
+
 
 
 CREATE OR REPLACE PROCEDURE sp_actualizar_categoria(
