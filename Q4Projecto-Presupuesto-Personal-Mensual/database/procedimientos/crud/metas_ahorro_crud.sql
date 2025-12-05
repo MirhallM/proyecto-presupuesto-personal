@@ -140,11 +140,16 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1
         FROM metas_ahorro
-        WHERE id_meta = p_id_meta;
+        WHERE id_meta = p_id_meta
     ) THEN
         RAISERROR 50003 'La meta de ahorro no existe';
     END IF;
+
+    SELECT *
+    FROM metas_ahorro
+    WHERE id_meta = p_id_meta;
 END;
+
 
 CREATE OR REPLACE PROCEDURE sp_consultar_metas_usuario(
     IN p_id_usuario integer

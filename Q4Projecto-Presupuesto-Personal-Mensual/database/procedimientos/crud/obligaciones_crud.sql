@@ -77,7 +77,7 @@ BEGIN
 	IF NOT EXISTS (
 		SELECT 1
 		FROM obligaciones
-		WHERE id_obligacion = p_id_obligacion AND es_vigente = 1;
+		WHERE id_obligacion = p_id_obligacion AND es_vigente = 1
 	) THEN
 		RAISERROR 50000 'No hay obligacion con esta ID';
 	END IF;

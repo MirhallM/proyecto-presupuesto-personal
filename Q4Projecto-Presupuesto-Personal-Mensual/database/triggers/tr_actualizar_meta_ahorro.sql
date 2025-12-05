@@ -3,22 +3,22 @@ AFTER INSERT ON transacciones
 REFERENCING NEW AS new_trans
 FOR EACH ROW
 BEGIN
-    DECLARE v_id_meta integer;
-    DECLARE v_monto_meta decimal(10,2);
-    DECLARE v_monto_ahorrado decimal(10,2);
+    DECLARE v_id_meta INTEGER;
+    DECLARE v_monto_meta DECIMAL(10,2);
+    DECLARE v_monto_ahorrado DECIMAL(10,2);
 
     -- Solo aplica para transacciones de tipo ahorro
     IF new_trans.tipo_transaccion <> 'ahorro' THEN
         RETURN;
     END IF;
 
-    -- Obtener la meta asociada a la subcategoría
-    SELECT id_meta, monto_meta, monto_ahorrado
+    -- Obtener la meta asociada a la subcategoría (solo la primera encontrada)
+    SELECT TOP 1 id_meta, monto_meta, monto_ahorrado
     INTO v_id_meta, v_monto_meta, v_monto_ahorrado
     FROM metas_ahorro
     WHERE id_subcategoria = new_trans.id_subcategoria
       AND estado = 'en_progreso'
-    FETCH FIRST 1 ROWS ONLY;
+    ORDER BY id_meta;  -- o cualquier criterio que quieras usar para elegir "la primera"
 
     -- Si no existe una meta activa, salir
     IF v_id_meta IS NULL THEN
