@@ -79,7 +79,7 @@ BEGIN
 		FROM obligaciones
 		WHERE id_obligacion = p_id_obligacion AND es_vigente = 1;
 	) THEN
-		RAISERROR 50000 'No hay obligación con esta ID';
+		RAISERROR 50000 'No hay obligacion con esta ID';
 	END IF;
 	
 	SELECT 

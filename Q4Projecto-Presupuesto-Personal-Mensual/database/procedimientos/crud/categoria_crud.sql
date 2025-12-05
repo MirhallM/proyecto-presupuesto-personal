@@ -52,7 +52,7 @@ BEGIN
 	AND es_activo = 1;
 	
 	IF v_tiene_subcategorias > 0 THEN
-		RAISERROR 50000 'No se puede eliminar, tiene subcategorías activas';
+		RAISERROR 50000 'No se puede eliminar, tiene subcategorï¿½as activas';
 	END IF;
 	
 	DELETE FROM categorias
@@ -68,7 +68,7 @@ BEGIN
 		FROM categorias
 		WHERE id_categoria = p_id_categoria
 	) THEN
-		RAISERROR 50000 'No hay categoría con esta ID';
+		RAISERROR 50000 'No hay categorï¿½a con esta ID';
 	END IF;
 	
 	SELECT *
