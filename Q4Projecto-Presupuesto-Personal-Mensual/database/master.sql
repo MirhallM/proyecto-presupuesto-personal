@@ -1,5 +1,5 @@
 -- MASTER SCRIPT PARA CONSTRUIR TODA LA BASE DE DATOS
--- Proyecto de Presupuestos SQL Anywhere
+-- Proyecto de Presupuesto Personal Mensual SQL Anywhere
 
 -- IMPORTANTE:
 -- Este archivo asume que la base de datos YA EXISTE,
