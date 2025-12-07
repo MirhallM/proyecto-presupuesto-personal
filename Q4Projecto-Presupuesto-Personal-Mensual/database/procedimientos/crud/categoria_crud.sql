@@ -14,6 +14,7 @@ BEGIN
         tipo_categoria,
         nombre_icono,
         color,
+		orden_interfaz,
         creado_por,
         modificado_por
     ) VALUES (
@@ -22,12 +23,11 @@ BEGIN
         p_tipo,
         NULL,
         NULL,
+		(SELECT COALESCE(MAX(orden_interfaz), 0) + 1 FROM categorias),
         p_creado_por,
         p_creado_por
     );
 END;
-
-
 
 CREATE OR REPLACE PROCEDURE sp_actualizar_categoria(
 	IN p_id_categoria integer,
@@ -75,19 +75,26 @@ BEGIN
 		RAISERROR 50000 'No hay categor�a con esta ID';
 	END IF;
 	
-	SELECT *
+	SELECT id_categoria,
+		nombre,
+        descripcion,
+        tipo_categoria,
+        nombre_icono,
+        color,
+		orden_interfaz
 	FROM categorias
 	WHERE id_categoria = p_id_categoria;
 END;
 
-CREATE OR REPLACE PROCEDURE sp_listar_categorias(
-	IN p_id_usuario integer,
-	IN p_tipo varchar(16)
-)
+CREATE OR REPLACE PROCEDURE sp_listar_categorias()
 BEGIN
-	SELECT *
+	SELECT id_categoria,
+		nombre,
+		descripcion,
+		tipo_categoria,
+		nombre_icono,
+		color,
+		orden_interfaz
 	FROM categorias
-	WHERE id_usuario = p_id_usuario
-	AND (p_tipo IS NULL OR tipo_categoria = p_tipo)
-	ORDER BY fecha_creacion DESC;
+	ORDER BY id_categoria ASC;
 END;

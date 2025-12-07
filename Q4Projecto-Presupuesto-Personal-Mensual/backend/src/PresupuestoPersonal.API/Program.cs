@@ -19,6 +19,7 @@ var connectionString =
 // Inyección de dependencias
 builder.Services.AddSingleton(new ConexionBD(connectionString));
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
 
 // Servicios del API
 builder.Services.AddControllers();
