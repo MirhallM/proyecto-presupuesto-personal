@@ -4,11 +4,16 @@ namespace PresupuestoPersonal.Datos.Conexion
 {
     public class ConexionBD
     {
-        private readonly string _cadena = "DSN=PresupuestoDSN;UID=admin;PWD=contra;";
+        private readonly string _connectionString;
+
+        public ConexionBD(string connectionString)
+        {
+        _connectionString = connectionString;
+        }
 
         public OdbcConnection CrearConexion()
         {
-            return new OdbcConnection(_cadena);
+        return new OdbcConnection(_connectionString);
         }
     }
 }

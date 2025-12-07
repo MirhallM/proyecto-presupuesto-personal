@@ -4,28 +4,36 @@ using PresupuestoPersonal.Datos.Repositorios;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ==== Servicios de la aplicación ====
+// ================== CONFIGURAR CADENA PARA AZURE ==================
+var connectionString =
+    "DRIVER=SQL Anywhere 17;" +
+    "UID=admin;" +
+    "PWD=contra;" +
+    "ENG=ProyectoPresupuesto;" +
+    "DBN=BD_Proyecto Personal;" +
+    "LINKS=tcpip(HOST=20.46.232.81:2638)";
 
+
+// ================== INYECCIÓN DE DEPENDENCIAS =====================
+builder.Services.AddSingleton(new ConexionBD(connectionString));
+builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+
+// ================== SERVICIOS DEL API ============================
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Inyección de dependencias
-builder.Services.AddSingleton<ConexionBD>(); // sin parámetros porque usamos DSN
-builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-
 var app = builder.Build();
 
-// ==== Configuración del pipeline HTTP ====
-
+// ================== PIPELINE HTTP ================================
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Si marca problemas de HTTPS deshabilitamos redirección por ahora
-// app.UseHttpsRedirection(); <-- Se puede activar luego
+// Por ahora HTTPS redirection desactivado para facilitar pruebas externas
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
