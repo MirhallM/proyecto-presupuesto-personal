@@ -9,5 +9,6 @@ namespace PresupuestoPersonal.Datos.Interfaces
         int CrearUsuario(Usuario usuario);
         bool ActualizarUsuario(Usuario usuario);
         bool EliminarUsuario(int idUsuario);
+        List<Usuario> ObtenerUsuariosInactivos();
     }
 }

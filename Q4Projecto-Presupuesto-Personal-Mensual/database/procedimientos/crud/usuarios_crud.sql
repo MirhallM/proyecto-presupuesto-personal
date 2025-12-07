@@ -67,5 +67,14 @@ CREATE OR REPLACE PROCEDURE sp_listar_usuarios()
 BEGIN
     SELECT *
     FROM usuarios
+    WHERE es_Activo = 1
     ORDER BY id_usuario DESC;
+END;
+
+CREATE OR REPLACE PROCEDURE sp_listar_usuarios_inactivos()
+BEGIN
+	SELECT *
+	FROM usuarios
+	WHERE es_Activo = 0
+	ORDER BY id_usuario DESC;
 END;

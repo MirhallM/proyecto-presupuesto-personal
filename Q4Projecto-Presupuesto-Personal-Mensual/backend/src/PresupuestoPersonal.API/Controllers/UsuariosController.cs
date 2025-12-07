@@ -29,6 +29,24 @@ namespace PresupuestoPersonal.API.Controllers
             return Ok(usuario);
         }
 
+        [HttpGet("inactivos")]
+        public IActionResult GetUsuariosInactivos()
+        {
+            var lista = _repo.ObtenerUsuariosInactivos();
+            return Ok(lista);
+        }
+
+        [HttpPost]
+        public IActionResult CrearUsuario([FromBody] Usuario usuario)
+        {
+            var idGenerado = _repo.CrearUsuario(usuario);
+
+            if (idGenerado > 0)
+                return Ok(new { mensaje = "Usuario creado correctamente", id = idGenerado });
+
+            return BadRequest("No se pudo crear el usuario");
+        }
+
         [HttpPut("{id}")]
         public IActionResult ActualizarUsuario(int id, [FromBody] Usuario usuario)
         {

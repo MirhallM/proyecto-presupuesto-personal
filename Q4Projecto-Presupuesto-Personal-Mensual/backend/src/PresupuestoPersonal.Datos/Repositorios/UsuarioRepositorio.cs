@@ -70,12 +70,11 @@ namespace PresupuestoPersonal.Datos.Repositorios
             using var conn = _conexion.CrearConexion();
             conn.Open();
 
-            using var cmd = new OdbcCommand("CALL sp_actualizar_usuario(?,?,?,?,?,?)", conn);
+            using var cmd = new OdbcCommand("CALL sp_actualizar_usuario(?,?,?,?,?)", conn);
 
             cmd.Parameters.Add("id", OdbcType.Int).Value = usuario.IdUsuario;
             cmd.Parameters.Add("nombres", OdbcType.VarChar).Value = usuario.Nombres;
             cmd.Parameters.Add("apellidos", OdbcType.VarChar).Value = usuario.Apellidos;
-            cmd.Parameters.Add("correo", OdbcType.VarChar).Value = usuario.CorreoElectronico;
             cmd.Parameters.Add("salario", OdbcType.Decimal).Value = usuario.SalarioBase;
             cmd.Parameters.Add("modificado_por", OdbcType.VarChar).Value = usuario.ModificadoPor;
 
@@ -110,6 +109,24 @@ namespace PresupuestoPersonal.Datos.Repositorios
                 CreadoEn = rdr.GetDateTime(9),
                 ModificadoEn = rdr.GetDateTime(10)
             };
+        }
+
+        public List<Usuario> ObtenerUsuariosInactivos()
+        {
+            var usuarios = new List<Usuario>();
+
+            using var conn = _conexion.CrearConexion();
+            conn.Open();
+
+            using var cmd = new OdbcCommand("CALL sp_listar_usuarios_inactivos()", conn);
+            using var rdr = cmd.ExecuteReader();
+
+            while (rdr.Read())
+            {
+                usuarios.Add(MapearUsuario(rdr));
+            }
+
+            return usuarios;
         }
     }
 }
