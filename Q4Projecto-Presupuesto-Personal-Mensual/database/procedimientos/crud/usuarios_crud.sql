@@ -43,9 +43,9 @@ END;
 CREATE OR REPLACE PROCEDURE sp_eliminar_usuario(p_id_usuario integer)
 BEGIN 
 	UPDATE usuarios 
-	SET es_activo = 0
+	SET es_activo = 0,
+		modificado_en = current server timestamp
 	WHERE id_usuario= p_id_usuario;
-
 END;
 
 CREATE OR REPLACE PROCEDURE sp_consultar_usuario(p_id_usuario integer)
@@ -58,14 +58,26 @@ IF NOT EXISTS (
 	RAISERROR 50000 'No hay usuario con esta ID'
 END IF;
 
-	SELECT * 
+	SELECT id_usuario,
+	nombres,
+	apellidos,
+	correo_electronico,
+	fecha_registro,
+	salario_base,
+	es_activo 
 	FROM usuarios 
 	WHERE id_usuario = p_id_usuario;
 END;
 
 CREATE OR REPLACE PROCEDURE sp_listar_usuarios()
 BEGIN
-    SELECT *
+	SELECT id_usuario,
+	nombres,
+	apellidos,
+	correo_electronico,
+	fecha_registro,
+	salario_base,
+	es_activo 
     FROM usuarios
     WHERE es_Activo = 1
     ORDER BY id_usuario DESC;
@@ -73,7 +85,13 @@ END;
 
 CREATE OR REPLACE PROCEDURE sp_listar_usuarios_inactivos()
 BEGIN
-	SELECT *
+	SELECT id_usuario,
+	nombres,
+	apellidos,
+	correo_electronico,
+	fecha_registro,
+	salario_base,
+	es_activo
 	FROM usuarios
 	WHERE es_Activo = 0
 	ORDER BY id_usuario DESC;

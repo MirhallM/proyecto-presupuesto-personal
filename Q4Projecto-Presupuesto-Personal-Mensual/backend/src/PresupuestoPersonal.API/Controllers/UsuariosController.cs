@@ -26,6 +26,10 @@ namespace PresupuestoPersonal.API.Controllers
         /// Obtiene la lista de todos los usuarios.
         /// </summary>
         /// <returns>Lista de Usuarios</returns>
+        /// <remarks> 
+        /// Ejemplo de solicitud:
+        /// GET /api/usuarios
+        /// </remarks>
         [HttpGet]
         public IActionResult GetUsuarios() => Ok(_repo.ObtenerUsuarios());
 
@@ -34,6 +38,10 @@ namespace PresupuestoPersonal.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Usuario</returns>
+        /// <remarks> 
+        /// Ejemplo de solicitud:
+        /// GET /api/usuarios/1
+        /// </remarks>
         [HttpGet("{id}")]
         public IActionResult GetUsuarioPorId(int id)
         {
@@ -48,6 +56,10 @@ namespace PresupuestoPersonal.API.Controllers
         /// Obtiene la lista de usuarios inactivos.
         /// </summary>
         /// <returns>Lista de Usuarios Inactivos</returns>
+        /// <remarks>
+        /// Ejemplo de solicitud:
+        /// GET /api/usuarios/inactivos
+        /// </remarks>
         [HttpGet("inactivos")]
         public IActionResult GetUsuariosInactivos()
         {
@@ -119,6 +131,10 @@ namespace PresupuestoPersonal.API.Controllers
         /// Elimina un usuario por su ID, osea lo desactiva.
         /// </summary>
         /// <param name="id"></param>
+        /// <remarks>
+        /// Ejemplo de solicitud:
+        /// DELETE /api/usuarios/1
+        /// </remarks>
         [HttpDelete("{id}")]
         public IActionResult EliminarUsuario(int id)
         {

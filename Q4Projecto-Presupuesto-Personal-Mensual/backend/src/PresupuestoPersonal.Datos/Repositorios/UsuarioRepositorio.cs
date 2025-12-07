@@ -109,11 +109,7 @@ namespace PresupuestoPersonal.Datos.Repositorios
                 CorreoElectronico = rdr.GetString(3),
                 FechaRegistro = rdr.GetDateTime(4),
                 SalarioBase = rdr.GetDecimal(5),
-                EsActivo = rdr.GetInt32(6) == 1,
-                CreadoPor = rdr.GetString(7),
-                ModificadoPor = rdr.GetString(8),
-                CreadoEn = rdr.GetDateTime(9),
-                ModificadoEn = rdr.GetDateTime(10)
+                EsActivo = rdr.GetInt32(6) == 1
             };
         }
 

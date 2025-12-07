@@ -28,9 +28,9 @@ namespace PresupuestoPersonal.Modelos.Entidades
         public bool EsActivo { get; set; }
 
         //Campos de Auditoria
-        public string CreadoPor { get; set; } = string.Empty;
-        public string ModificadoPor { get; set; } = string.Empty;
-        public DateTime CreadoEn { get; set; }
-        public DateTime ModificadoEn { get; set; }  
+        [JsonIgnore] public string CreadoPor { get; set; } = string.Empty;
+        [JsonIgnore] public string ModificadoPor { get; set; } = string.Empty;
+        [JsonIgnore] public DateTime CreadoEn { get; set; }
+        [JsonIgnore] public DateTime ModificadoEn { get; set; }  
     }
 }
