@@ -6,7 +6,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ================== CONFIGURAR CADENA PARA AZURE ==================
+// Configurar la cadena de conexión
 var connectionString =
     "DRIVER=SQL Anywhere 17;" +
     "UID=admin;" +

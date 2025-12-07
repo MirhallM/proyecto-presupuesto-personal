@@ -3,6 +3,12 @@ using PresupuestoPersonal.Datos.Repositorios;
 using PresupuestoPersonal.Datos.Interfaces;
 using PresupuestoPersonal.Modelos.Entidades;
 
+/*
+    UsuariosController.cs
+    Controlador API para gestionar las operaciones relacionadas con los usuarios.
+    Proporciona endpoints para crear, leer, actualizar y eliminar usuarios (utilizando desactivación).
+*/
+
 namespace PresupuestoPersonal.API.Controllers
 {
     [ApiController]

@@ -3,6 +3,12 @@ using PresupuestoPersonal.Modelos.Entidades;
 using PresupuestoPersonal.Datos.Interfaces;
 using PresupuestoPersonal.Datos.Conexion;
 
+/*
+    UsuarioRepositorio.cs
+    Implementación del repositorio para gestionar las operaciones de datos relacionadas a los usuarios.
+    Utiliza procedimientos almacenados para interactuar con la base de datos.
+*/
+
 namespace PresupuestoPersonal.Datos.Repositorios
 {
     public class UsuarioRepositorio : IUsuarioRepositorio
