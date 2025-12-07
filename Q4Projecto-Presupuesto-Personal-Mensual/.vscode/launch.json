@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "🔥 API Hot Reload",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "watch",
+        "run",
+        "--project",
+        "${workspaceFolder}/backend/src/PresupuestoPersonal.API/PresupuestoPersonal.API.csproj"
+      ],
+      "cwd": "${workspaceFolder}/backend/src/PresupuestoPersonal.API",
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    }
+  ]
+}
