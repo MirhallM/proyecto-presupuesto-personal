@@ -1,6 +1,8 @@
 using PresupuestoPersonal.Datos.Conexion;
 using PresupuestoPersonal.Datos.Interfaces;
 using PresupuestoPersonal.Datos.Repositorios;
+using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,26 +16,25 @@ var connectionString =
     "LINKS=tcpip(HOST=20.46.232.81:2638)";
 
 
-// ================== INYECCIÓN DE DEPENDENCIAS =====================
+// Inyección de dependencias
 builder.Services.AddSingleton(new ConexionBD(connectionString));
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
-// ================== SERVICIOS DEL API ============================
+// Servicios del API
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 
 var app = builder.Build();
 
-// ================== PIPELINE HTTP ================================
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-// Por ahora HTTPS redirection desactivado para facilitar pruebas externas
-// app.UseHttpsRedirection();
+// Configurar el pipeline de la aplicación
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseAuthorization();
 

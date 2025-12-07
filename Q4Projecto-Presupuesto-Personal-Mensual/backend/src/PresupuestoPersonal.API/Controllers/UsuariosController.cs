@@ -16,9 +16,18 @@ namespace PresupuestoPersonal.API.Controllers
             _repo = repo;
         }
 
+        /// <summary>
+        /// Obtiene la lista de todos los usuarios.
+        /// </summary>
+        /// <returns>Lista de Usuarios</returns>
         [HttpGet]
         public IActionResult GetUsuarios() => Ok(_repo.ObtenerUsuarios());
 
+        /// <summary>
+        /// Obtiene un usuario por su ID.   
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Usuario</returns>
         [HttpGet("{id}")]
         public IActionResult GetUsuarioPorId(int id)
         {
@@ -29,6 +38,10 @@ namespace PresupuestoPersonal.API.Controllers
             return Ok(usuario);
         }
 
+        /// <summary>
+        /// Obtiene la lista de usuarios inactivos.
+        /// </summary>
+        /// <returns>Lista de Usuarios Inactivos</returns>
         [HttpGet("inactivos")]
         public IActionResult GetUsuariosInactivos()
         {
@@ -36,6 +49,24 @@ namespace PresupuestoPersonal.API.Controllers
             return Ok(lista);
         }
 
+        /// <summary>
+        /// Crea un nuevo usuario. 
+        /// </summary>
+        /// <remarks>
+        /// Ejemplo de solicitud:
+        /// 
+        ///   POST /api/usuarios
+        /// 
+        ///     {  
+        ///     "Nombres": "Ana",
+        ///     "Apellidos": "Gómez",
+        ///     "CorreoElectronico":" "ana@test.com",
+        ///     "SalarioBase": 60000.00,
+        ///     "CreadoPor": "admin"
+        ///     }
+        /// </remarks>
+        /// <param name="usuario"></param>
+        /// <returns>ID del usuario creado</returns>
         [HttpPost]
         public IActionResult CrearUsuario([FromBody] Usuario usuario)
         {
@@ -47,19 +78,41 @@ namespace PresupuestoPersonal.API.Controllers
             return BadRequest("No se pudo crear el usuario");
         }
 
-        [HttpPut("{id}")]
-        public IActionResult ActualizarUsuario(int id, [FromBody] Usuario usuario)
+        /// <summary>
+        /// Actualiza un usuario existente.
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <param name="usuario"></param>
+        /// <remarks>
+        /// Ejemplo de solicitud:
+        /// 
+        ///  PUT /api/usuarios/1
+        /// 
+        ///     {
+        ///     "IdUsuario": 1,
+        ///     "Nombres": "Ana María",
+        ///     "Apellidos": "Gómez López",
+        ///     "SalarioBase": 65000.00,
+        ///     "ModificadoPor": "editor"
+        ///     }    
+        /// </remarks>
+        [HttpPut("{idUsuario}")]
+        public IActionResult ActualizarUsuario(int idUsuario, [FromBody] Usuario usuario)
         {
-            if (id != usuario.IdUsuario)
-                return BadRequest("El ID del usuario no coincide.");
+            if (idUsuario != usuario.IdUsuario)
+            return BadRequest("El ID del usuario no coincide.");
 
             var actualizado = _repo.ActualizarUsuario(usuario);
             if (!actualizado)
-                return NotFound();
+            return NotFound();
 
             return NoContent();
         }
 
+        /// <summary>
+        /// Elimina un usuario por su ID, osea lo desactiva.
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public IActionResult EliminarUsuario(int id)
         {
