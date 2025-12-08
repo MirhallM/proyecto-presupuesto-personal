@@ -57,7 +57,6 @@ namespace PresupuestoPersonal.API.Controllers
         /// </summary>
         /// <param name="categoria"></param>
         /// <param name="usuarioCreador"></param>
-        /// <returns>ID de la nueva categoría</returns>
         /// <remarks>
         /// Ejemplo de solicitud:
         /// POST /api/categorias

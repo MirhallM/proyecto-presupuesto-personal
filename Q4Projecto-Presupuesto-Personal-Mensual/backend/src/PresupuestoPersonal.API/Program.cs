@@ -20,6 +20,7 @@ var connectionString =
 builder.Services.AddSingleton(new ConexionBD(connectionString));
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
+builder.Services.AddScoped<ISubcategoriaRepositorio, SubcategoriaRepositorio>();
 
 // Servicios del API
 builder.Services.AddControllers();

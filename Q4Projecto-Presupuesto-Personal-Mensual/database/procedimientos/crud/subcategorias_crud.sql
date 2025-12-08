@@ -1,4 +1,4 @@
--- 1) Insertar una nueva subcategoría
+-- 1) Insertar una nueva subcategoria
 CREATE OR REPLACE PROCEDURE sp_insertar_subcategoria(
 	IN p_id_categoria integer,
 	IN p_nombre varchar(50),
@@ -46,7 +46,8 @@ END;
 
 -- 3) Eliminar una subcategoria
 CREATE OR REPLACE PROCEDURE sp_eliminar_subcategoria(
-	IN p_id_subcategoria integer
+	IN p_id_subcategoria integer,
+	IN p_modificado_por varchar(50)
 )
 BEGIN
 	DECLARE v_en_uso integer;
@@ -56,7 +57,7 @@ BEGIN
 	WHERE id_subcategoria = p_id_subcategoria;
 	
 	IF v_en_uso > 0 THEN
-		RAISERROR 50001 'No se puede eliminar, subcategoría en uso en presupuestos';
+		RAISERROR 50001 'No se puede eliminar, subcategoria en uso en presupuestos';
 	END IF;
 	
 	SELECT COUNT(*) INTO v_en_uso
@@ -64,10 +65,13 @@ BEGIN
 	WHERE id_subcategoria = p_id_subcategoria;
 	
 	IF v_en_uso > 0 THEN
-		RAISERROR 50002 'No se puede eliminar, subcategoría en uso en transacciones';
+		RAISERROR 50002 'No se puede eliminar, subcategoria en uso en transacciones';
 	END IF;
 	
-	DELETE FROM subcategorias
+	UPDATE subcategorias SET
+		es_activo = 0,
+		modificado_por = p_modificado_por,
+		modificado_en = CURRENT TIMESTAMP
 	WHERE id_subcategoria = p_id_subcategoria;
 END;
 
@@ -82,7 +86,7 @@ BEGIN
 		FROM subcategorias
 		WHERE id_subcategoria = p_id_subcategoria
 	) THEN
-		RAISERROR 50000 'No hay subcategoría con esta ID';
+		RAISERROR 50000 'No hay subcategoria con esta ID';
 	END IF;
 	SELECT 
 		s.*,
@@ -90,7 +94,8 @@ BEGIN
 		c.tipo_categoria AS tipo_categoria
 	FROM subcategorias s
 	INNER JOIN categorias c ON s.id_categoria = c.id_categoria
-	WHERE s.id_subcategoria = p_id_subcategoria;
+	WHERE s.id_subcategoria = p_id_subcategoria
+		AND s.es_activo = 1;
 END;
 
 
@@ -102,5 +107,6 @@ BEGIN
 	SELECT *
 	FROM subcategorias
 	WHERE id_categoria = p_id_categoria
-	ORDER BY es_defecto DESC, nombre ASC;
+		AND es_activo = 1
+	ORDER BY id_subcategoria DESC;
 END;
