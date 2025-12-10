@@ -55,7 +55,8 @@ END;
 
 -- 4) Consultar un detalle de presupuesto por ID
 CREATE OR REPLACE PROCEDURE sp_consultar_detalles_presupuesto(
-	IN p_id_detalle integer
+	IN p_id_detalle integer,
+	IN p_id_presupuesto integer
 )
 BEGIN
 	IF NOT EXISTS (
@@ -66,11 +67,24 @@ BEGIN
 		RAISERROR 50000 'No hay detalle de presupuesto con esta ID';
 	END IF;
 
+	IF NOT EXISTS (
+		SELECT 1
+		FROM detalles_presupuesto
+		WHERE id_detalle = p_id_detalle
+		AND id_presupuesto = p_id_presupuesto
+	) THEN
+		RAISERROR 50001 'El detalle de presupuesto no pertenece al presupuesto especificado';
+	END IF;
+
 	SELECT 
-		pd.*,
+		pd.id_detalle,
+		pd.id_presupuesto,
+		pd.id_subcategoria,
+		pd.monto_asignado,
+		pd.justificacion,
 		s.nombre AS nombre_subcategoria,
 		c.nombre AS nombre_categoria,
-		c.tipo AS tipo_categoria
+		c.tipo_categoria AS tipo_categoria
 	FROM detalles_presupuesto pd
 	INNER JOIN subcategorias s ON pd.id_subcategoria = s.id_subcategoria
 	INNER JOIN categorias c ON s.id_categoria = c.id_categoria

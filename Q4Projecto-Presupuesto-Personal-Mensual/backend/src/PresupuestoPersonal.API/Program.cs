@@ -22,6 +22,7 @@ builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
 builder.Services.AddScoped<ISubcategoriaRepositorio, SubcategoriaRepositorio>();
 builder.Services.AddScoped<IPresupuestoRepositorio, PresupuestoRepositorio>();
+builder.Services.AddScoped<IDetallesRepositorio, DetallesRepositorio>();
 
 // Servicios del API
 builder.Services.AddControllers();
