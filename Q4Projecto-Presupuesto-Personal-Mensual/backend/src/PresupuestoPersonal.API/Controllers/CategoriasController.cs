@@ -45,11 +45,18 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetCategoriaPorId(int id)
         {
-            var categoria = _repo.ObtenerPorId(id);
-            if (categoria == null)
-                return NotFound();
+            try
+            {
+                var categoria = _repo.ObtenerPorId(id);
+                if (categoria == null)
+                    return NotFound();
 
-            return Ok(categoria);
+                return Ok(categoria);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener la categoría: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -71,8 +78,15 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpPost]
         public IActionResult CrearCategoria([FromBody] Categoria categoria, [FromHeader] string usuarioCreador)
         {
-            var nuevaCategoriaId = _repo.CrearCategoria(categoria, usuarioCreador);
-            return CreatedAtAction(nameof(GetCategoriaPorId), new { id = nuevaCategoriaId }, nuevaCategoriaId);
+            try
+            {
+                var nuevaCategoriaId = _repo.CrearCategoria(categoria, usuarioCreador);
+                return CreatedAtAction(nameof(GetCategoriaPorId), new { id = nuevaCategoriaId }, nuevaCategoriaId);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al crear la categoría: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -95,16 +109,23 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpPut("{id}")]
         public IActionResult ActualizarCategoria(int id, [FromBody] Categoria categoria, [FromHeader] string usuarioModificador)
         {
-            var categoriaExistente = _repo.ObtenerPorId(id);
-            if (categoriaExistente == null)
-                return NotFound();
+            try
+            {
+                var categoriaExistente = _repo.ObtenerPorId(id);
+                if (categoriaExistente == null)
+                    return NotFound();
 
-            categoria.IdCategoria = id;
-            var actualizado = _repo.ActualizarCategoria(categoria, usuarioModificador);
-            if (!actualizado)
-                return StatusCode(500, "Error al actualizar la categoría.");
+                categoria.IdCategoria = id;
+                var actualizado = _repo.ActualizarCategoria(categoria, usuarioModificador);
+                if (!actualizado)
+                    return StatusCode(500, "Error al actualizar la categoría.");
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al actualizar la categoría: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -119,15 +140,22 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult EliminarCategoria(int id, [FromHeader] string usuarioModificador)
         {
-            var categoriaExistente = _repo.ObtenerPorId(id);
-            if (categoriaExistente == null)
-                return NotFound();
+            try
+            {
+                var categoriaExistente = _repo.ObtenerPorId(id);
+                if (categoriaExistente == null)
+                    return NotFound();
 
-            var eliminado = _repo.EliminarCategoria(id, usuarioModificador);
-            if (!eliminado)
-                return StatusCode(500, "Error al eliminar la categoría.");
+                var eliminado = _repo.EliminarCategoria(id, usuarioModificador);
+                if (!eliminado)
+                    return StatusCode(500, "Error al eliminar la categoría.");
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al eliminar la categoría: {ex.Message}");
+            }
         }
     }
 }

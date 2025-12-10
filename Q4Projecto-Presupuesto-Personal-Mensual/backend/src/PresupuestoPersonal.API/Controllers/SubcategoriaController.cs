@@ -32,7 +32,18 @@ namespace PresupuestoPersonal.API.Controllers
         /// GET /api/subcategorias/categoria/1
         /// </remarks>
         [HttpGet("categoria/{idCategoria}")]
-        public IActionResult GetSubcategoriasPorCategoria(int idCategoria) => Ok(_repo.ObtenerSubcategoriasPorCategoria(idCategoria));
+        public IActionResult GetSubcategoriasPorCategoria(int idCategoria)
+        {
+            try
+            {
+                var subcategorias = _repo.ObtenerSubcategoriasPorCategoria(idCategoria);
+                return Ok(subcategorias);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener subcategorías: {ex.Message}");
+            }
+        }
 
         /// <summary>
         /// Obtiene una subcategoría por su ID.
@@ -46,11 +57,18 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetSubcategoriaPorId(int id)
         {
-            var subcategoria = _repo.ObtenerPorId(id);
-            if (subcategoria == null)
-                return NotFound();
+            try
+            {
+                var subcategoria = _repo.ObtenerPorId(id);
+                if (subcategoria == null)
+                    return NotFound();
 
-            return Ok(subcategoria);
+                return Ok(subcategoria);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al obtener la subcategoría: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -72,8 +90,15 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpPost]
         public IActionResult CrearSubcategoria([FromBody] Subcategoria subcategoria, [FromHeader] string usuarioCreador)
         {
-            var nuevoId = _repo.CrearSubcategoria(subcategoria, usuarioCreador);
-            return CreatedAtAction(nameof(GetSubcategoriaPorId), new { id = nuevoId }, null);
+            try
+            {
+                var nuevoId = _repo.CrearSubcategoria(subcategoria, usuarioCreador);
+                return CreatedAtAction(nameof(GetSubcategoriaPorId), new { id = nuevoId }, null);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al crear la subcategoría: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -88,11 +113,18 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult EliminarSubcategoria(int id, [FromHeader] string usuarioModificador)
         {
-            var exito = _repo.EliminarSubcategoria(id, usuarioModificador);
-            if (!exito)
-                return NotFound();
+            try
+            {
+                var exito = _repo.EliminarSubcategoria(id, usuarioModificador);
+                if (!exito)
+                    return NotFound();
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al eliminar la subcategoría: {ex.Message}");
+            }
         }
 
         /// <summary>
@@ -114,16 +146,23 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpPut("{id}")]
         public IActionResult ActualizarSubcategoria(int id, [FromBody] Subcategoria subcategoria, [FromHeader] string usuarioModificador)
         {
-            var subcategoriaExistente = _repo.ObtenerPorId(id);
-            if (subcategoriaExistente == null)
-                return NotFound();
+            try
+            {
+                var subcategoriaExistente = _repo.ObtenerPorId(id);
+                if (subcategoriaExistente == null)
+                    return NotFound();
 
-            subcategoria.IdSubcategoria = id;
-            var actualizado = _repo.ActualizarSubcategoria(subcategoria, usuarioModificador);
-            if (!actualizado)
-                return StatusCode(500, "Error al actualizar la subcategoría.");
+                subcategoria.IdSubcategoria = id;
+                var actualizado = _repo.ActualizarSubcategoria(subcategoria, usuarioModificador);
+                if (!actualizado)
+                    return StatusCode(500, "Error al actualizar la subcategoría.");
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error al actualizar la subcategoría: {ex.Message}");
+            }
         }
     }
 }

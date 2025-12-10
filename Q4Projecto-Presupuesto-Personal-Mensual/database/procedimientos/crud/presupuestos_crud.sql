@@ -1,18 +1,19 @@
--- =============================================
 -- INSERTAR PRESUPUESTO
--- =============================================
 CREATE OR REPLACE PROCEDURE sp_insertar_presupuesto(
     IN p_id_usuario integer,
     IN p_nombre varchar(100),
     IN p_descripcion varchar(255),
     IN p_periodo_inicio date,
-    IN p_periodo_fin date
+    IN p_periodo_fin date,
+    IN p_total_ahorros decimal(10,2) -- Total de ahorros esperados
 )
 BEGIN
     DECLARE v_anio_inicio integer;
     DECLARE v_mes_inicio integer;
     DECLARE v_anio_final integer;
     DECLARE v_mes_final integer;
+    DECLARE v_total_ingresos DECIMAL(10,2) DEFAULT 0;
+    DECLARE v_total_gastos DECIMAL(10,2) DEFAULT 0;
     DECLARE v_creador varchar(50);
 
     SET v_anio_inicio = YEAR(p_periodo_inicio);
@@ -58,8 +59,7 @@ BEGIN
         mes_inicio,
         anio_final,
         mes_final,
-        total_ingresos,
-        total_gastos,
+        total_ahorros,
         estado,
         creado_por,
         modificado_por
@@ -71,23 +71,36 @@ BEGIN
         v_mes_inicio,
         v_anio_final,
         v_mes_final,
-        0.00,
-        0.00,
+        p_total_ahorros,
         'activo',
         v_creador,
         v_creador
     );
+
+        -- Calcular total_gastos
+    SELECT SUM(json_array[[row_num]].monto_mensual) INTO v_total_gastos
+    FROM sa_rowgenerator(1, CARDINALITY(json_array));
+
+    -- Calcular total_ingresos del salario_base del usuario
+    SELECT salario_base INTO v_total_ingresos
+    FROM usuarios
+    WHERE id_usuario = p_id_usuario;
+
+    -- Actualizar totales de presupuesto
+    UPDATE presupuestos
+    SET total_gastos = v_total_gastos,
+        total_ingresos = v_total_ingresos
+    WHERE id_presupuesto = v_id_presupuesto;
 END;
 
--- =============================================
 -- ACTUALIZAR PRESUPUESTO
--- =============================================
 CREATE OR REPLACE PROCEDURE sp_actualizar_presupuesto(
     IN p_id_presupuesto integer,
     IN p_nombre varchar(100),
     IN p_descripcion varchar(255),
     IN p_periodo_inicio date,
     IN p_periodo_fin date,
+    IN p_total_ahorros decimal(10,2), -- Total de ahorros esperados
     IN p_modificado_por varchar(50)
 )
 BEGIN
@@ -136,9 +149,25 @@ BEGIN
         mes_inicio = v_mes_inicio,
         anio_final = v_anio_final,
         mes_final = v_mes_final,
+        total_ahorros = p_total_ahorros,
         modificado_por = p_modificado_por,
         fecha_modificacion = CURRENT DATE
     WHERE id_presupuesto = p_id_presupuesto;
+
+        -- Calcular total_gastos
+    SELECT SUM(json_array[[row_num]].monto_mensual) INTO v_total_gastos
+    FROM sa_rowgenerator(1, CARDINALITY(json_array));
+
+    -- Calcular total_ingresos del salario_base del usuario
+    SELECT salario_base INTO v_total_ingresos
+    FROM usuarios
+    WHERE id_usuario = p_id_usuario;
+
+    -- Actualizar totales de presupuesto
+    UPDATE presupuestos
+    SET total_gastos = v_total_gastos,
+        total_ingresos = v_total_ingresos
+    WHERE id_presupuesto = v_id_presupuesto;
 END;
 
 

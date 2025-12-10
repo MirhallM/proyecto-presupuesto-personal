@@ -45,11 +45,18 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetUsuarioPorId(int id)
         {
-            var usuario = _repo.ObtenerPorId(id);
-            if (usuario == null)
-                return NotFound();
+            try
+            {
+                var usuario = _repo.ObtenerPorId(id);
+                if (usuario == null)
+                    return NotFound();
 
-            return Ok(usuario);
+                return Ok(usuario);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensaje = "Error al obtener el usuario", detalle = ex.Message });
+            }
         }
 
         /// <summary>
@@ -63,8 +70,15 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpGet("inactivos")]
         public IActionResult GetUsuariosInactivos()
         {
-            var lista = _repo.ObtenerUsuariosInactivos();
-            return Ok(lista);
+            try
+            {
+                var lista = _repo.ObtenerUsuariosInactivos();
+                return Ok(lista);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensaje = "Error al obtener la lista de usuarios inactivos", detalle = ex.Message });
+            }
         }
 
         /// <summary>
@@ -88,12 +102,19 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpPost]
         public IActionResult CrearUsuario([FromBody] Usuario usuario)
         {
-            var idGenerado = _repo.CrearUsuario(usuario);
+            try
+            {
+                var idGenerado = _repo.CrearUsuario(usuario);
 
-            if (idGenerado > 0)
-                return Ok(new { mensaje = "Usuario creado correctamente", id = idGenerado });
+                if (idGenerado > 0)
+                    return Ok(new { mensaje = "Usuario creado correctamente", id = idGenerado });
 
-            return BadRequest("No se pudo crear el usuario");
+                return BadRequest("No se pudo crear el usuario");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensaje = "Error al crear el usuario", detalle = ex.Message });
+            }
         }
 
         /// <summary>
@@ -117,14 +138,21 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpPut("{idUsuario}")]
         public IActionResult ActualizarUsuario(int idUsuario, [FromBody] Usuario usuario)
         {
-            if (idUsuario != usuario.IdUsuario)
-            return BadRequest("El ID del usuario no coincide.");
+            try
+            {
+                if (idUsuario != usuario.IdUsuario)
+                    return BadRequest("El ID del usuario no coincide.");
 
-            var actualizado = _repo.ActualizarUsuario(usuario);
-            if (!actualizado)
-            return NotFound();
+                var actualizado = _repo.ActualizarUsuario(usuario);
+                if (!actualizado)
+                    return NotFound();
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensaje = "Error al actualizar el usuario", detalle = ex.Message });
+            }
         }
 
         /// <summary>
@@ -138,11 +166,18 @@ namespace PresupuestoPersonal.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult EliminarUsuario(int id)
         {
-            var eliminado = _repo.EliminarUsuario(id);
-            if (!eliminado)
-                return NotFound();
+            try
+            {
+                var eliminado = _repo.EliminarUsuario(id);
+                if (!eliminado)
+                    return NotFound();
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensaje = "Error al eliminar el usuario", detalle = ex.Message });
+            }
         }
     }
 }

@@ -4,6 +4,7 @@
     IN p_descripcion varchar(255),  --Descripcion del presupuesto
     IN p_periodo_inicio date,   -- Fecha inicio del presupuesto
     IN p_periodo_fin date, -- Fecha fin del presupuesto
+    IN p_total_ahorros decimal(10,2), -- Total de ahorros esperados
     IN p_lista_subcategorias_json LONG VARCHAR -- JSON array de {id_subcategoria, monto_mensual}   
 )
 BEGIN
@@ -74,6 +75,7 @@ BEGIN
             mes_final,
             total_ingresos,
             total_gastos,
+            total_ahorros,
             estado,
             creado_por,
             modificado_por
@@ -85,8 +87,9 @@ BEGIN
             v_mes_inicio,
             v_anio_final,
             v_mes_final,
-            v_total_ingresos,
             0.00,
+            0.00,
+            p_total_ahorros,
             'activo',
             v_creador,
             v_creador
