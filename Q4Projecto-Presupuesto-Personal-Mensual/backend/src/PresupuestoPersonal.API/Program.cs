@@ -25,6 +25,7 @@ builder.Services.AddScoped<IPresupuestoRepositorio, PresupuestoRepositorio>();
 builder.Services.AddScoped<IDetallesRepositorio, DetallesRepositorio>();
 builder.Services.AddScoped<ITransaccionesRepositorio, TransaccionesRepositorio>();
 builder.Services.AddScoped<IObligacionRepositorio, ObligacionRepositorio>();
+builder.Services.AddScoped<IMetaAhorroRepositorio, MetaAhorroRepositorio>();
 
 
 // Servicios del API
