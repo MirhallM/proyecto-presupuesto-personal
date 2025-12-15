@@ -40,7 +40,6 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configurar el pipeline de la aplicación
 app.UseSwagger();
 app.UseSwaggerUI();
 
