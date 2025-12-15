@@ -65,7 +65,7 @@ INSERT INTO `subcategorias` (`id_subcategoria`, `id_categoria`, `nombre`, `descr
 (45, 18, 'Ahorro Casa', 'Ahorro para compra de casa', 1, 0, 'Carlos Eduardo', 'Carlos Eduardo', '2025-12-05 15:38:58', '2025-12-05 15:38:58');
 
 -- 4. Insertar presupuestos de prueba
-INSERT INTO `presupuestos` (`id_presupuesto`, `id_usuario`, `nombre_presupuesto`, `descripcion`, `anio_incio`, `mes_inicio`, `anio_final`, `mes_final`, `total_ingresos`, `total_gastos`, `total_ahorros`, `fecha_creacion`, `estado`, `creado_por`, `modificado_por`, `creado_en`, `modificado_en`) VALUES
+INSERT INTO `presupuestos` (`id_presupuesto`, `id_usuario`, `nombre_presupuesto`, `descripcion`, `anio_inicio`, `mes_inicio`, `anio_final`, `mes_final`, `total_ingresos`, `total_gastos`, `total_ahorros`, `fecha_creacion`, `estado`, `creado_por`, `modificado_por`, `creado_en`, `modificado_en`) VALUES
 (1, 1, 'Presupuesto Diciembre 2024', 'Presupuesto mensual para diciembre 2024 con gastos navideños', 2024, 12, 2024, 12, 48500, 42000, 4000, '2025-12-05', 'activo', 'Carlos Eduardo', 'Carlos Eduardo', '2025-12-05 15:39:08', '2025-12-05 15:39:08'),
 (2, 1, 'Presupuesto Enero 2025', 'Presupuesto mensual para enero 2025 - inicio de año', 2025, 1, 2025, 1, 45000, 38000, 5000, '2025-12-05', 'activo', 'Carlos Eduardo', 'Carlos Eduardo', '2025-12-05 15:39:08', '2025-12-05 15:39:08');
 

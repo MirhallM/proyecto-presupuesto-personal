@@ -1,21 +1,16 @@
 -- MASTER SCRIPT PARA CONSTRUIR TODA LA BASE DE DATOS
 -- Proyecto de Presupuesto Personal Mensual SQL Anywhere
 
--- IMPORTANTE:
--- Este archivo asume que la base de datos YA EXISTE,
--- porque SQL Anywhere no permite CREATE DATABASE dentro de scripts.
-
--- 1. CREACIÓN DE TABLAS
+-- 1. Creacion de tablas
 
 READ 'DDL/01_crearTablas.sql';
 
--- 2. CREACIÓN DE RESTRICCIONES (FK, UNIQUE, CHECK)
+-- 2. Creacion de restricciones
 
 READ 'DDL/02_crearRestricciones.sql';
 
--- 3. CREACIÓN DE FUNCIONES
+-- 3. Creaccion de funciones
 
--- Funciones principales
 READ 'funciones/fn_calcular_monto_ejecutado.sql';
 READ 'funciones/fn_calcular_porcentaje_ejecutado.sql';
 READ 'funciones/fn_calcular_proyeccion_gasto_mensual.sql';
@@ -27,7 +22,7 @@ READ 'funciones/fn_obtener_total_categoria_mes.sql';
 READ 'funciones/fn_obtener_total_ejecutado_categoria_mes.sql';
 READ 'funciones/fn_validar_vigencia_presupuesto.sql';
 
--- 4. CRUD (PROCEDIMIENTOS DE OPERACIONES BÁSICAS)
+-- 4. CRUD 
 
 READ 'procedimientos/crud/categoria_crud.sql';
 READ 'procedimientos/crud/detalles_presupuesto_crud.sql';
@@ -38,7 +33,7 @@ READ 'procedimientos/crud/subcategorias_crud.sql';
 READ 'procedimientos/crud/transacciones_crud.sql';
 READ 'procedimientos/crud/usuarios_crud.sql';
 
--- 5. PROCEDIMIENTOS DE LÓGICA DE NEGOCIO
+-- 5. Logica de negocios
 
 READ 'procedimientos/Logicas de Negocio/RN_actualizar_todas_metas_ahorro.sql';
 READ 'procedimientos/Logicas de Negocio/RN_calcular_balance_mensual.sql';
@@ -49,13 +44,11 @@ READ 'procedimientos/Logicas de Negocio/RN_crear_presupuesto_completo.sql';
 READ 'procedimientos/Logicas de Negocio/RN_crear_transaccion_completa.sql';
 READ 'procedimientos/Logicas de Negocio/RN_obtener_resumen_categoria_mes.sql';
 
--- 6. TRIGGERS
+-- 6. Triggers
 
 READ 'triggers/tr_actualizar_meta_ahorro.sql';
 READ 'triggers/tr_categoria_insert_subcategoria_default.sql';
 
--- 7. CARGA DE DATOS DE PRUEBA 
+-- 7. Cargar datos de pruebas
 
 READ 'datos_prueba/datos_prueba.sql';
-
--- FIN DEL MASTER SCRIPT

@@ -24,7 +24,7 @@ create or replace table "presupuestos"(
   "id_usuario" integer not null,
   "nombre_presupuesto" varchar(100) not null,
   "descripcion" varchar(255) not null,
-  "anio_incio" integer not null,
+  "anio_inicio" integer not null,
   "mes_inicio" integer not null,
   "anio_final" integer not null,
   "mes_final" integer not null,

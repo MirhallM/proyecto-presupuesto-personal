@@ -31,11 +31,11 @@ BEGIN
     END IF;
 
     IF v_anio_final < v_anio_inicio THEN
-        RAISERROR 20000 'El año final no puede ser menor que el año inicial';
+        RAISERROR 20000 'El aï¿½o final no puede ser menor que el aï¿½o inicial';
     END IF;
 
     IF v_anio_final = v_anio_inicio AND v_mes_final < v_mes_inicio THEN
-        RAISERROR 20000 'El mes final no puede ser menor que el mes de inicio dentro del mismo año';
+        RAISERROR 20000 'El mes final no puede ser menor que el mes de inicio dentro del mismo aï¿½o';
     END IF;
 
     IF EXISTS (
@@ -55,7 +55,7 @@ BEGIN
         id_usuario,
         nombre_presupuesto,
         descripcion,
-        anio_incio,
+        anio_inicio,
         mes_inicio,
         anio_final,
         mes_final,
@@ -120,11 +120,11 @@ BEGIN
     SET v_mes_final = MONTH(p_periodo_fin);
 
     IF v_anio_final < v_anio_inicio THEN
-        RAISERROR 20000 'El año final no puede ser menor que el año inicial';
+        RAISERROR 20000 'El aï¿½o final no puede ser menor que el aï¿½o inicial';
     END IF;
 
     IF v_anio_final = v_anio_inicio AND v_mes_final < v_mes_inicio THEN
-        RAISERROR 20000 'El mes final no puede ser menor que el mes de inicio dentro del mismo año';
+        RAISERROR 20000 'El mes final no puede ser menor que el mes de inicio dentro del mismo aï¿½o';
     END IF;
 
     -- Verificar que no exista otro presupuesto activo que choque con estas fechas
@@ -145,7 +145,7 @@ BEGIN
     UPDATE presupuestos
     SET nombre_presupuesto = p_nombre,
         descripcion = p_descripcion,
-        anio_incio = v_anio_inicio,
+        anio_inicio = v_anio_inicio,
         mes_inicio = v_mes_inicio,
         anio_final = v_anio_final,
         mes_final = v_mes_final,
@@ -215,5 +215,5 @@ BEGIN
     FROM presupuestos
     WHERE id_usuario = p_id_usuario
       AND estado = p_estado
-    ORDER BY anio_incio, mes_inicio;
+    ORDER BY anio_inicio, mes_inicio;
 END;
