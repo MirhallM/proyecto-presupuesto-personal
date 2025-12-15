@@ -9,7 +9,7 @@
   <ItemGroup>
     <Reference Include="Sap.Data.SQLAnywhere.Core.v2.1">
       <HintPath>lib\Sap.Data.SQLAnywhere.Core.v2.1.dll</HintPath>
-      <Private>true</Private> <!-- copy to output -->
+      <Private>true</Private> 
     </Reference>
   </ItemGroup>
 
