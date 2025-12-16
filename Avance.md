@@ -20,7 +20,7 @@ El proyecto sigue una arquitectura de tres capas: **Base de Datos, Backend y Pre
 |-----|------|
 | Base de Datos (SQL Anywhere 17) | Implementada |
 | Backend (ASP.NET Core + ODBC) | Implementada |
-| Reportería (Power BI) | Parcialmente implementada |
+| Reportería (Power BI) | Implementada |
 | Frontend (UI Web) | Pendiente (Swagger documentado como alternativa) |
 
 ---
@@ -159,9 +159,25 @@ Power BI permitió:
 
 ### 5.2 Estado de Reportes
 
-- Reporte 1 (Resumen mensual): Completado
-- Reportes 2 (Distribución de Gastos por Categoría): Completado
-- Reportes 3-6: Pendientes
+Se implementaron los seis reportes solicitados utilizando Power BI, conectándose directamente a la base de datos mediante ODBC y ejecutando consultas SQL personalizadas. Cada reporte incluye su respectiva consulta, visualización y explicación.
+
+- **Reporte 1: Resumen Mensual de Ingresos vs Gastos vs Ahorros**  
+  Permite comparar los ingresos, gastos y ahorros por mes, mostrando el balance final y facilitando el análisis financiero general.
+
+- **Reporte 2: Distribución de Gastos por Categoría**  
+  Muestra la distribución porcentual del gasto total por categoría, agregando las subcategorías correspondientes y permitiendo identificar los principales rubros de consumo.
+
+- **Reporte 3: Análisis de Cumplimiento de Presupuesto por Categoría y Subcategoría**  
+  Compara el monto presupuestado contra el monto ejecutado a nivel de subcategoría, incluyendo diferencias, porcentaje de ejecución e indicadores visuales para detectar desviaciones.
+
+- **Reporte 4: Tendencia de Gastos por Categoría en el Tiempo**  
+  Presenta la evolución mensual de los gastos por categoría mediante gráficos de líneas, permitiendo identificar patrones y comportamientos estacionales.
+
+- **Reporte 5: Estado de Obligaciones Fijas y Cumplimiento de Pagos**  
+  Permite monitorear el estado de las obligaciones fijas, mostrando si se encuentran pagadas, pendientes o vencidas, junto con indicadores visuales y un resumen general.
+
+- **Reporte 6: Progreso de Metas de Ahorro**  
+  Muestra el avance de las metas de ahorro comparando el monto objetivo con el monto ahorrado, incluyendo porcentaje completado y días restantes.
 
 Las consultas base y funciones necesarias para los reportes ya se encuentran implementadas en la base de datos.
 
@@ -180,6 +196,7 @@ No obstante:
 
 ## 7. Trabajo Pendiente
 
-- Implementación del frontend web (UI)
-- Finalización de los 4 Reportes que quedaron pendientes
+- Implementación de una interfaz gráfica de usuario (frontend web)
+- Integración visual del frontend con los reportes
+
 
