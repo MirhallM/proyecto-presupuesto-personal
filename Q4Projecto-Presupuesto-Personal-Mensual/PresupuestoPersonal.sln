@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresupuestoPersonal.API", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresupuestoPersonal.Modelos", "backend\src\PresupuestoPersonal.Modelos\PresupuestoPersonal.Modelos.csproj", "{4C7C88F8-E9DD-4EF1-9832-824F90BB1D70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresupuestoPersonal.Negocio", "backend\src\PresupuestoPersonal.Negocio\PresupuestoPersonal.Negocio.csproj", "{B221A481-0E13-43B0-8225-DFCBEDD79F0E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresupuestoPersonal.Datos", "backend\src\PresupuestoPersonal.Datos\PresupuestoPersonal.Datos.csproj", "{81BCCDB3-3540-469A-8195-2B2C9619B83B}"
 EndProject
 Global
@@ -81,7 +79,6 @@ Global
 		{0F9113EE-888A-26D2-68B0-4A7D0A2A8745} = {1AE8ACA6-933B-BF2A-3671-3E2EAC007D16}
 		{9279B00C-BDD8-4692-9553-B4DDD4786E0A} = {0F9113EE-888A-26D2-68B0-4A7D0A2A8745}
 		{4C7C88F8-E9DD-4EF1-9832-824F90BB1D70} = {0F9113EE-888A-26D2-68B0-4A7D0A2A8745}
-		{B221A481-0E13-43B0-8225-DFCBEDD79F0E} = {0F9113EE-888A-26D2-68B0-4A7D0A2A8745}
 		{81BCCDB3-3540-469A-8195-2B2C9619B83B} = {0F9113EE-888A-26D2-68B0-4A7D0A2A8745}
 	EndGlobalSection
 EndGlobal

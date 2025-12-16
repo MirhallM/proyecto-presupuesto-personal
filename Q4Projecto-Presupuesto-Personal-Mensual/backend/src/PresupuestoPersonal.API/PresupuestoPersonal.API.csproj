@@ -21,7 +21,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PresupuestoPersonal.Negocio\PresupuestoPersonal.Negocio.csproj" />
     <ProjectReference Include="..\PresupuestoPersonal.Modelos\PresupuestoPersonal.Modelos.csproj" />
   </ItemGroup>
 
