@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PresupuestoPersonal.Modelos\PresupuestoPersonal.Modelos.csproj" />
+    <ProjectReference Include="..\PresupuestoPersonal.Datos\PresupuestoPersonal.Datos.csproj" />
   </ItemGroup>
 
 </Project>
